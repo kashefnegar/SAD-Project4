@@ -17,3 +17,6 @@ class Exam:
 
     def addRoom(self, room):
         self.rooms.append(room)
+
+    def addStudent(self, student):
+        self.StdList.append(student)
