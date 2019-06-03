@@ -11,9 +11,11 @@ class InputOp:
         self.defaultOrders = \
             {"login": self.login,
              "start": self.start,
-             "getExamsList": self.getExamsList
+             "getExamsList": self.getExamsList,
+             "getExamList": self.getExamList
              }
         self.isInfoGotten = False
+        self.isExamSelected = False
 
     def newOrder(self, order):
         self.orders = order.split(" ")
@@ -49,3 +51,22 @@ class InputOp:
             "=========================================== Exams List ==================================================")
         for exam in self.examsList:
             exam.printExam()
+
+    def getExamList(self, info):
+        if self.activeUser.isLoggedIn:
+            if self.isInfoGotten:
+                for exam in self.Op.exams:
+                    if exam.examId == int(info[1]):
+                        print(
+                            "============================================ Exam Info ==================================================")
+                        self.selectedExam = exam
+                        self.selectedExam.printExam()
+                        self.isExamSelected = True
+
+                if not self.isExamSelected:
+                    print("# No exam with this id was found")
+
+            else:
+                print("# You need to enter 'start' first")
+        else:
+            print("# You are not logged in")
