@@ -3,7 +3,7 @@ class Course:
         self.courseName = coursename
         self.Professors = []
 
-    def setProfessor(self, professor):
+    def addProfessor(self, professor):
         self.Professors.append(professor)
 
 
