@@ -4,7 +4,7 @@ from Object.Cards.StudentCard import StudentCard
 
 class Student:
     def __init__(self, firstname, lastname, id):
-        self.StdCard = StudentCard(firstname, lastname, id)
+        self.stdCard = StudentCard(firstname, lastname, id)
         self.identitiyCards = []
         self.addIdentityCard(firstname, lastname)
 

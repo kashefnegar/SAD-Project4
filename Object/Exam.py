@@ -1,8 +1,8 @@
 
 class Exam:
     def __init__(self, id):
-        self.ExamId = id
-        self.StdList = []
+        self.examId = id
+        self.stdList = []
         self.start = ''
         self.end = ''
         self.course = ''
@@ -19,4 +19,4 @@ class Exam:
         self.rooms.append(room)
 
     def addStudent(self, student, chairNumber):
-        self.StdList.append([student, chairNumber])
+        self.stdList.append([student, chairNumber])

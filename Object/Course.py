@@ -1,9 +1,9 @@
 class Course:
     def __init__(self, coursename):
         self.courseName = coursename
-        self.Professors = []
+        self.professors = []
 
     def addProfessor(self, professor):
-        self.Professors.append(professor)
+        self.professors.append(professor)
 
 

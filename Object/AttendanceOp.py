@@ -18,21 +18,21 @@ class AttendanceOp:
             self.setJsonData(info)
 
     def initData(self):
-        self.Exams = []
-        self.Date = ''
+        self.exams = []
+        self.date = ''
         self.status = ''
 
     def setJsonData(self, info):
         data = json.loads(info)
         self.status = data["status"]
-        self.Date = data["date"]
+        self.date = data["date"]
         self.setExams(data["classes"])
 
     def setExams(self, data):
         for exam in data:
             print(exam)
             tempExam = self.createExam(exam)
-            self.Exams.append(tempExam)
+            self.exams.append(tempExam)
 
 
     def createExam(self, examInfo):
