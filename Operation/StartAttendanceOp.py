@@ -7,9 +7,10 @@ from Object.Exam import Exam
 from Object.Professor import Professor
 from Object.Room import Room
 from Object.Student import Student
+from Object.Time import Time
 
 
-class AttendanceOp:
+class StartAttendanceOp:
     def __init__(self):
         self.initData()
         link = "http://142.93.134.194:8088/api/attendance"
@@ -30,7 +31,6 @@ class AttendanceOp:
 
     def setExams(self, data):
         for exam in data:
-            print(exam)
             tempExam = self.createExam(exam)
             self.exams.append(tempExam)
 
@@ -43,7 +43,7 @@ class AttendanceOp:
 
         start = examInfo["start_at"]
         end = examInfo["end_at"]
-        exam.setTime(start, end)
+        exam.setTime(Time(self.date, start, end))
 
         course = Course(examInfo["course_name"])
         professor = self.createProf(examInfo["professor"])

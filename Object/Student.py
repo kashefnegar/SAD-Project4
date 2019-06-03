@@ -10,3 +10,6 @@ class Student:
 
     def addIdentityCard(self, firstname, lastname):
         self.identitiyCards.append((IdentityCard(firstname, lastname)))
+
+    def printInfo(self):
+        print(self.stdCard.firstName + " " + self.stdCard.lastName, end="\t\t\t")

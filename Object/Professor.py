@@ -10,3 +10,7 @@ class Professor:
 
     def addIdentityCard(self, firstname, lastname):
         self.identitiyCards.append((IdentityCard(firstname, lastname)))
+
+    def printName(self):
+        print("Professor Name : ", end="")
+        print(self.profCard.firstName + " " + self.profCard.lastName, end=" ,")

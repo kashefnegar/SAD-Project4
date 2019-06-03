@@ -1,14 +1,14 @@
 class User_:
     def __init__(self):
-        self.username = "kashefnegar"
-        self.password = "ne12345678"
+        self.username = "k"
+        self.password = "n"
         self.isLoggedIn = False
 
     def login(self, username, password):
         if self.username != username:
-            print("You are not allowed to use the system")
+            print("# You are not allowed to use the system")
         elif self.password != password:
-            print("The password is wrong")
+            print("# The password is wrong")
         else:
-            print("You are logged in")
+            print("# You are logged in")
             self.isLoggedIn = True
