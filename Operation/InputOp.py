@@ -1,5 +1,4 @@
-from Object.AttendanceList import AttendanceList
-from Object.Exam import Exam
+from Object.Student import Student
 from Operation.StartAttendanceOp import StartAttendanceOp
 from User.User import User_
 
@@ -12,10 +11,15 @@ class InputOp:
             {"login": self.login,
              "start": self.start,
              "getExamsList": self.getExamsList,
-             "getExamList": self.getExamList
+             "getExamList": self.getExamList,
+             "getStudentInfo": self.getStudentInfo,
+             "getProfInfo": self.getProfInfo,
+             "addStudent": self.addStudent,
              }
         self.isInfoGotten = False
         self.isExamSelected = False
+        self.isStdSelected = False
+        self.isProfSelected = False
 
     def newOrder(self, order):
         self.orders = order.split(" ")
@@ -53,6 +57,7 @@ class InputOp:
             exam.printExam()
 
     def getExamList(self, info):
+        self.isExamSelected = False
         if self.activeUser.isLoggedIn:
             if self.isInfoGotten:
                 for exam in self.Op.exams:
@@ -70,3 +75,71 @@ class InputOp:
                 print("# You need to enter 'start' first")
         else:
             print("# You are not logged in")
+
+    def getStudentInfo(self, info):
+        self.isStdSelected = False
+        if self.activeUser.isLoggedIn:
+            if self.isInfoGotten:
+                if self.isExamSelected:
+                    std = self.selectedExam.getStudent(info[1])
+                    if std != -1:
+                        self.isStdSelected = True
+                        print(
+                            "=========================================== Student Info ================================================")
+                        print("Student Name :", end="")
+                        std[0].printInfo()
+                        print("Chair Number :", end="")
+                        print(std[1])
+                        print(
+                            "=========================================================================================================")
+                    else:
+                        print("# Student not found")
+                        print("# Do you want to add student manually?[Y/N]")
+                        answer = input()
+                        if answer == 'y' or answer == 'Y':
+                            self.newOrder("addStudent")
+
+                else:
+                    print("# No exam is selected")
+            else:
+                print("# You need to enter 'start' first")
+        else:
+            print("# You are not logged in")
+
+    def getProfInfo(self, info):
+        self.isProfSelected = False
+        if self.activeUser.isLoggedIn:
+            if self.isInfoGotten:
+                if self.isExamSelected:
+                    prof = self.selectedExam.getProf(info[1])
+                    if prof != -1:
+                        self.isProfSelected = True
+                        print(
+                            "========================================== Professor Info ===============================================")
+                        prof.printName()
+                        print(
+                            "=========================================================================================================")
+                    else:
+                        print("# Professor not found")
+                else:
+                    print("# No exam is selected")
+            else:
+                print("# You need to enter 'start' first")
+        else:
+            print("# You are not logged in")
+
+    def addStudent(self, info):
+        print("# Enter student first name:")
+        firstname = input()
+        print("# Enter student last name:")
+        lastname = input()
+        print("# Enter student id:")
+        id = input()
+        print("# Enter student chair number:")
+        chairNumber = input()
+
+        if self.selectedExam.checkChair(chairNumber) and self.selectedExam.checkId(id):
+            std = Student(firstname, lastname, id)
+            self.selectedExam.addStudent(std, chairNumber)
+        else:
+            print("# Check entered information")

@@ -11,6 +11,11 @@ class Professor:
     def addIdentityCard(self, firstname, lastname):
         self.identitiyCards.append((IdentityCard(firstname, lastname)))
 
+    def getProfId(self):
+        return self.profCard.profId
+
     def printName(self):
         print("Professor Name : ", end="")
-        print(self.profCard.firstName + " " + self.profCard.lastName, end=" ,")
+        print(self.profCard.firstName + " " + self.profCard.lastName, end=" ")
+        print("Professor Id : ", end="")
+        print(self.profCard.profId)

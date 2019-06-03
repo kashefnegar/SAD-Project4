@@ -12,4 +12,9 @@ class Student:
         self.identitiyCards.append((IdentityCard(firstname, lastname)))
 
     def printInfo(self):
-        print(self.stdCard.firstName + " " + self.stdCard.lastName, end="\t\t\t")
+        print(self.stdCard.firstName + " " + self.stdCard.lastName, end=" \t")
+        print("Student Id: ", end="")
+        print(self.stdCard.stdId, end="\t")
+
+    def getId(self):
+        return self.stdCard.stdId

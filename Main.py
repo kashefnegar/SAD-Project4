@@ -10,6 +10,12 @@ if __name__ == "__main__":
     # mainOp.newOrder(order)
     order = "getExamList 2012"
     mainOp.newOrder(order)
+    order = "getStudentInfo 1010"
+    mainOp.newOrder(order)
+    # order = "getProfInfo 12312"
+    # mainOp.newOrder(order)
+    order = "getExamList 2012"
+    mainOp.newOrder(order)
     # while True:
     #     print("# Enter what you want:")
     #     order = input()

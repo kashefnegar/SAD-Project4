@@ -10,5 +10,8 @@ class Course:
         print(self.courseName, end="")
 
     def printProfessors(self):
+        index = 1
         for prof in self.professors:
+            print(index, end="")
+            print(":")
             prof.printName()
