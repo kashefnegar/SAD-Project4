@@ -139,7 +139,10 @@ class InputOp:
         chairNumber = input()
 
         if self.selectedExam.checkChair(chairNumber) and self.selectedExam.checkId(id):
-            std = Student(firstname, lastname, id)
-            self.selectedExam.addStudent(std, chairNumber)
+            print("# Does the professor accept this:[Y/N]")
+            answer = input()
+            if answer == 'y' or answer == 'Y':
+                std = Student(firstname, lastname, id)
+                self.selectedExam.addStudent(std, chairNumber)
         else:
             print("# Check entered information")
