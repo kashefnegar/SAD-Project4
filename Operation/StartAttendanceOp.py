@@ -8,6 +8,7 @@ from Object.Professor import Professor
 from Object.Room import Room
 from Object.Student import Student
 from Object.Time import Time
+from Operation.setAttendance import setAttendance
 
 
 class StartAttendanceOp:
@@ -22,6 +23,7 @@ class StartAttendanceOp:
         self.exams = []
         self.date = ''
         self.status = ''
+        self.attendance = []
 
     def setJsonData(self, info):
         data = json.loads(info)
@@ -67,3 +69,11 @@ class StartAttendanceOp:
         lastName = stdInfo["last_name"]
         stdId = stdInfo["id"]
         return Student(firstName, lastName, stdId)
+
+    def findAttendance(self, exam):
+        for att in self.attendance:
+            if att.exam.examId == exam.examId:
+                return att
+        temp = setAttendance().setExam(exam)
+        self.attendance.append(temp)
+        return self.attendance[-1]

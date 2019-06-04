@@ -1,5 +1,6 @@
 from Object.Student import Student
 from Operation.StartAttendanceOp import StartAttendanceOp
+from Operation.setAttendance import setAttendance
 from User.User import User_
 
 
@@ -15,6 +16,7 @@ class InputOp:
              "getStudentInfo": self.getStudentInfo,
              "getProfInfo": self.getProfInfo,
              "addStudent": self.addStudent,
+             "rollCallStudent": self.rollCallStudent
              }
         self.isInfoGotten = False
         self.isExamSelected = False
@@ -68,6 +70,10 @@ class InputOp:
                         self.selectedExam.printExam()
                         self.isExamSelected = True
 
+                        temp = setAttendance()
+                        temp.setExam(self.selectedExam)
+                        self.Op.attendance.append(temp)
+
                 if not self.isExamSelected:
                     print("# No exam with this id was found")
 
@@ -81,17 +87,24 @@ class InputOp:
         if self.activeUser.isLoggedIn:
             if self.isInfoGotten:
                 if self.isExamSelected:
-                    std = self.selectedExam.getStudent(info[1])
-                    if std != -1:
+                    self.selectedStd = self.selectedExam.getStudent(info[1])
+                    if  self.selectedStd != -1:
                         self.isStdSelected = True
                         print(
                             "=========================================== Student Info ================================================")
                         print("Student Name :", end="")
-                        std[0].printInfo()
+                        self.selectedStd[0].printInfo()
                         print("Chair Number :", end="")
-                        print(std[1])
+                        print(self.selectedStd[1])
                         print(
                             "=========================================================================================================")
+                        print("# Is the information correct?[Y/N]")
+                        answer = input()
+                        if answer == 'y' or answer == 'Y':
+                            self.newOrder("rollCallStudent")
+                        else:
+                            self.isStdSelected = False
+
                     else:
                         print("# Student not found")
                         print("# Do you want to add student manually?[Y/N]")
@@ -146,3 +159,13 @@ class InputOp:
                 self.selectedExam.addStudent(std, chairNumber)
         else:
             print("# Check entered information")
+
+    def rollCallStudent(self, info):
+        if self.isStdSelected and self.isExamSelected:
+            print("# Accept roll call?[Y/N]")
+            answer = input()
+            if answer == 'y' or answer == 'Y':
+                if not self.Op.findAttendance(self.selectedExam).hasThisStd(self.selectedStd[0]):
+                    self.Op.findAttendance(self.selectedExam).addStd(self.selectedStd[0])
+                else:
+                    print("# This student has been added")
