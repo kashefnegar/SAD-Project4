@@ -4,6 +4,7 @@ class Exam:
         self.stdList = []
         # self.course = ''
         self.rooms = []
+        self.isProfSigned = False
 
     def setTime(self, time):
         self.time = time
@@ -39,7 +40,9 @@ class Exam:
         for room in self.rooms:
             room.printNumber()
         print()
-        print("Professors: ")
+        print("Professors: ", end="\t\t\t\t\t\t\t\t")
+        print("Professors Sign:", end=" ")
+        print(self.isProfSigned)
         self.course.printProfessors()
         print("")
         print("")
@@ -74,3 +77,5 @@ class Exam:
                 del self.stdList[i]
                 break
 
+    def setProfSign(self):
+        self.isProfSigned = True

@@ -17,7 +17,8 @@ class InputOp:
              "getProfInfo": self.getProfInfo,
              "addStudent": self.addStudent,
              "deleteStudent": self.deleteStudent,
-             "rollCallStudent": self.rollCallStudent
+             "rollCallStudent": self.rollCallStudent,
+             "setProfSign": self.setProfSign
              }
         self.isInfoGotten = False
         self.isExamSelected = False
@@ -198,6 +199,22 @@ class InputOp:
             if self.isInfoGotten:
                 if self.isExamSelected:
                     self.selectedExam.deleteStd(info[1])
+                else:
+                    print("# No exam is selected")
+            else:
+                print("# You need to enter 'start' first")
+        else:
+            print("# You are not logged in")
+
+    def setProfSign(self, info):
+        if self.activeUser.isLoggedIn:
+            if self.isInfoGotten:
+                if self.isExamSelected:
+                    print("# Does the professors accept the roll call?[Y/N]")
+                    answer = input()
+                    if answer == 'y' or answer == 'Y':
+                        self.Op.findAttendance(self.selectedExam).isProfSigned = True
+                        self.selectedExam.setProfSign()
                 else:
                     print("# No exam is selected")
             else:
