@@ -36,7 +36,6 @@ class StartAttendanceOp:
             tempExam = self.createExam(exam)
             self.exams.append(tempExam)
 
-
     def createExam(self, examInfo):
         exam = Exam(examInfo["exam_id"])
 
@@ -77,3 +76,21 @@ class StartAttendanceOp:
         temp = setAttendance().setExam(exam)
         self.attendance.append(temp)
         return self.attendance[-1]
+
+    def sendToServer(self, exam):
+        jsonObject = self.createJsonObject(exam)
+        print(jsonObject)
+
+    def createJsonObject(self, exam):
+        presentList = self.findAttendance(exam).getPresentList()
+        presentListId = []
+        for std in presentList:
+            presentListId.append(std.getId())
+        jsonObject = {}
+        jsonObject.update({"examId": int(exam.examId)})
+        if exam.isProfSigned:
+            jsonObject.update({"is_teacher_signed": "true"})
+        else:
+            jsonObject.update({"is_teacher_signed": "false"})
+        jsonObject.update({"present_students_list": presentListId})
+        return jsonObject

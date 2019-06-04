@@ -229,7 +229,7 @@ class InputOp:
             if self.isInfoGotten:
                 if self.isExamSelected:
                     if self.selectedExam.isProfSigned:
-                        print("# Send info to server")
+                        self.Op.sendToServer(self.selectedExam)
                     else:
                         print("# The professor should sign the roll call first")
 
@@ -240,5 +240,5 @@ class InputOp:
         else:
             print("# You are not logged in")
 
-    def finish(self,info):
+    def finish(self, info):
         self.activeUser.logout()
