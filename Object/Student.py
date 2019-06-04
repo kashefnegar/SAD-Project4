@@ -7,6 +7,7 @@ class Student:
         self.stdCard = StudentCard(firstname, lastname, id)
         self.identitiyCards = []
         self.addIdentityCard(firstname, lastname)
+        self.isRollCalled = False
 
     def addIdentityCard(self, firstname, lastname):
         self.identitiyCards.append((IdentityCard(firstname, lastname)))
@@ -15,6 +16,11 @@ class Student:
         print(self.stdCard.firstName + " " + self.stdCard.lastName, end=" \t")
         print("Student Id: ", end="")
         print(self.stdCard.stdId, end="\t")
+        print("Present: ", end="")
+        print(self.isRollCalled, end="\t")
 
     def getId(self):
         return self.stdCard.stdId
+
+    def setPresent(self):
+        self.isRollCalled = True

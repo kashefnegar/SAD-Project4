@@ -180,6 +180,7 @@ class InputOp:
                     answer = input()
                     if answer == 'y' or answer == 'Y':
                         if not self.Op.findAttendance(self.selectedExam).hasThisStd(self.selectedStd[0]):
+                            self.selectedStd[0].setPresent()
                             self.Op.findAttendance(self.selectedExam).addStd(self.selectedStd[0])
                         else:
                             print("# This student has been added")
@@ -195,7 +196,10 @@ class InputOp:
     def deleteStudent(self, info):
         if self.activeUser.isLoggedIn:
             if self.isInfoGotten:
-                self.selectedExam.deleteStd(info[1])
+                if self.isExamSelected:
+                    self.selectedExam.deleteStd(info[1])
+                else:
+                    print("# No exam is selected")
             else:
                 print("# You need to enter 'start' first")
         else:

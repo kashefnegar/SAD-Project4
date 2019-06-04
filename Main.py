@@ -6,8 +6,8 @@ if __name__ == "__main__":
     mainOp.newOrder(order)
     order = "start"
     mainOp.newOrder(order)
-    # order = "getExamsList"
-    # mainOp.newOrder(order)
+    order = "getExamsList"
+    mainOp.newOrder(order)
     order = "getExamList 2012"
     mainOp.newOrder(order)
     order = "getStudentInfo 1008"
