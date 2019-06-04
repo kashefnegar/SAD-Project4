@@ -81,7 +81,15 @@ class StartAttendanceOp:
     def sendToServer(self, exam):
         jsonObject = self.createJsonObject(exam)
         r = requests.post("http://142.93.134.194:8088/api/attendance", data=jsonObject)
-        print(r.status_code, r.reason)
+        if r.status_code == 200:
+            print("# The information was sent to server correctly")
+        else:
+            print(r.status_code, r.reason)
+            print("# Unable to send information to server")
+            f = open(r"D:\University\3971-2\SAD\Projects\4\Project4\examId" + str(exam.examId) + ".txt", "a")
+            f.write(str(jsonObject))
+            f.close()
+            print("# Information is written in the file")
 
     def createJsonObject(self, exam):
         presentList = self.findAttendance(exam).getPresentList()
@@ -89,7 +97,7 @@ class StartAttendanceOp:
         for std in presentList:
             presentListId.append(std.getId())
         jsonObject = {}
-        jsonObject.update({"exam_id": int(exam.examId)})
+        jsonObject.update({"examid": int(exam.examId)})
         if exam.isProfSigned:
             jsonObject.update({"is_teacher_signed": "true"})
         else:
