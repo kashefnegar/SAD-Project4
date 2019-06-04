@@ -12,12 +12,12 @@ if __name__ == "__main__":
     mainOp.newOrder(order)
     order = "getStudentInfo 1008"
     mainOp.newOrder(order)
-    order = "getStudentInfo 1008"
+    # order = "getStudentInfo 1008"
+    # mainOp.newOrder(order)
+    order = "getExamList 2012"
     mainOp.newOrder(order)
-    order = "getExamList 2011"
-    mainOp.newOrder(order)
-    order = "getStudentInfo 1001"
-    mainOp.newOrder(order)
+    # order = "getStudentInfo 1001"
+    # mainOp.newOrder(order)
     # order = "getProfInfo 12312"
     # mainOp.newOrder(order)
     # order = "getExamList 2012"

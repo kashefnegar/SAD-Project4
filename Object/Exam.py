@@ -53,7 +53,8 @@ class Exam:
             print("Chair:", end=" ")
             print(student[1])
             index += 1
-        print("=========================================================================================================")
+        print(
+            "=========================================================================================================")
 
     def checkChair(self, chairNo):
         for item in self.stdList:
@@ -66,3 +67,10 @@ class Exam:
             if item[0].getId() == int(id):
                 return False
         return True
+
+    def deleteStd(self, stdId):
+        for i in range(0, len(self.stdList) - 1):
+            if self.stdList[i][0].stdCard.stdId == int(stdId):
+                del self.stdList[i]
+                break
+

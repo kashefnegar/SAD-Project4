@@ -16,6 +16,7 @@ class InputOp:
              "getStudentInfo": self.getStudentInfo,
              "getProfInfo": self.getProfInfo,
              "addStudent": self.addStudent,
+             "deleteStudent": self.deleteStudent,
              "rollCallStudent": self.rollCallStudent
              }
         self.isInfoGotten = False
@@ -88,7 +89,7 @@ class InputOp:
             if self.isInfoGotten:
                 if self.isExamSelected:
                     self.selectedStd = self.selectedExam.getStudent(info[1])
-                    if  self.selectedStd != -1:
+                    if self.selectedStd != -1:
                         self.isStdSelected = True
                         print(
                             "=========================================== Student Info ================================================")
@@ -104,6 +105,11 @@ class InputOp:
                             self.newOrder("rollCallStudent")
                         else:
                             self.isStdSelected = False
+                            print("# The Information for this student is wrong")
+                            print("# Do you want to delete it from list?[Y/N]")
+                            answer = input()
+                            if answer == 'y' or answer == 'Y':
+                                self.newOrder("deleteStudent " + info[1])
 
                     else:
                         print("# Student not found")
@@ -142,30 +148,55 @@ class InputOp:
             print("# You are not logged in")
 
     def addStudent(self, info):
-        print("# Enter student first name:")
-        firstname = input()
-        print("# Enter student last name:")
-        lastname = input()
-        print("# Enter student id:")
-        id = input()
-        print("# Enter student chair number:")
-        chairNumber = input()
+        if self.activeUser.isLoggedIn:
+            if self.isInfoGotten:
+                print("# Enter student first name:")
+                firstname = input()
+                print("# Enter student last name:")
+                lastname = input()
+                print("# Enter student id:")
+                id = input()
+                print("# Enter student chair number:")
+                chairNumber = input()
 
-        if self.selectedExam.checkChair(chairNumber) and self.selectedExam.checkId(id):
-            print("# Does the professor accept this:[Y/N]")
-            answer = input()
-            if answer == 'y' or answer == 'Y':
-                std = Student(firstname, lastname, id)
-                self.selectedExam.addStudent(std, chairNumber)
+                if self.selectedExam.checkChair(chairNumber) and self.selectedExam.checkId(id):
+                    print("# Does the professor accept this:[Y/N]")
+                    answer = input()
+                    if answer == 'y' or answer == 'Y':
+                        std = Student(firstname, lastname, id)
+                        self.selectedExam.addStudent(std, chairNumber)
+                else:
+                    print("# Check entered information")
+            else:
+                print("# You need to enter 'start' first")
         else:
-            print("# Check entered information")
+            print("# You are not logged in")
 
     def rollCallStudent(self, info):
-        if self.isStdSelected and self.isExamSelected:
-            print("# Accept roll call?[Y/N]")
-            answer = input()
-            if answer == 'y' or answer == 'Y':
-                if not self.Op.findAttendance(self.selectedExam).hasThisStd(self.selectedStd[0]):
-                    self.Op.findAttendance(self.selectedExam).addStd(self.selectedStd[0])
+        if self.activeUser.isLoggedIn:
+            if self.isInfoGotten:
+                if self.isStdSelected and self.isExamSelected:
+                    print("# Accept roll call?[Y/N]")
+                    answer = input()
+                    if answer == 'y' or answer == 'Y':
+                        if not self.Op.findAttendance(self.selectedExam).hasThisStd(self.selectedStd[0]):
+                            self.Op.findAttendance(self.selectedExam).addStd(self.selectedStd[0])
+                        else:
+                            print("# This student has been added")
+                elif not self.isExamSelected:
+                    print("# No exam is selected")
                 else:
-                    print("# This student has been added")
+                    print("# No student is selected")
+            else:
+                print("# You need to enter 'start' first")
+        else:
+            print("# You are not logged in")
+
+    def deleteStudent(self, info):
+        if self.activeUser.isLoggedIn:
+            if self.isInfoGotten:
+                self.selectedExam.deleteStd(info[1])
+            else:
+                print("# You need to enter 'start' first")
+        else:
+            print("# You are not logged in")
