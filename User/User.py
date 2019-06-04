@@ -2,6 +2,7 @@ class User_:
     def __init__(self):
         self.username = "k"
         self.password = "n"
+        self.name = ""
         self.isLoggedIn = False
 
     def login(self, username, password):
