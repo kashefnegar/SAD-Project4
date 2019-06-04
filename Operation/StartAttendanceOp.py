@@ -89,7 +89,7 @@ class StartAttendanceOp:
         for std in presentList:
             presentListId.append(std.getId())
         jsonObject = {}
-        jsonObject.update({"examId": int(exam.examId)})
+        jsonObject.update({"exam_id": int(exam.examId)})
         if exam.isProfSigned:
             jsonObject.update({"is_teacher_signed": "true"})
         else:
