@@ -18,7 +18,9 @@ class InputOp:
              "addStudent": self.addStudent,
              "deleteStudent": self.deleteStudent,
              "rollCallStudent": self.rollCallStudent,
-             "setProfSign": self.setProfSign
+             "setProfSign": self.setProfSign,
+             "sendExamInfoToServer": self.sendExamInfoToServer,
+             "finish": self.finish
              }
         self.isInfoGotten = False
         self.isExamSelected = False
@@ -221,3 +223,22 @@ class InputOp:
                 print("# You need to enter 'start' first")
         else:
             print("# You are not logged in")
+
+    def sendExamInfoToServer(self, info):
+        if self.activeUser.isLoggedIn:
+            if self.isInfoGotten:
+                if self.isExamSelected:
+                    if self.selectedExam.isProfSigned:
+                        print("# Send info to server")
+                    else:
+                        print("# The professor should sign the roll call first")
+
+                else:
+                    print("# No exam is selected")
+            else:
+                print("# You need to enter 'start' first")
+        else:
+            print("# You are not logged in")
+
+    def finish(self,info):
+        self.activeUser.logout()

@@ -12,8 +12,8 @@ if __name__ == "__main__":
     mainOp.newOrder(order)
     order = "getStudentInfo 1008"
     mainOp.newOrder(order)
-    order = "getStudentInfo 1009"
-    mainOp.newOrder(order)
+    # order = "getStudentInfo 1009"
+    # mainOp.newOrder(order)
     order = "getExamList 2012"
     mainOp.newOrder(order)
     order = "setProfSign"
@@ -21,14 +21,22 @@ if __name__ == "__main__":
     order = "getExamList 2012"
     mainOp.newOrder(order)
 
-    order = "getExamList 2011"
+    # order = "getExamList 2011"
+    # mainOp.newOrder(order)
+    # order = "getStudentInfo 1001"
+    # mainOp.newOrder(order)
+    # order = "setProfSign"
+    # mainOp.newOrder(order)
+    # order = "getExamsList"
+    # mainOp.newOrder(order)
+
+    order = "sendExamInfoToServer"
     mainOp.newOrder(order)
-    order = "getStudentInfo 1001"
+
+    order = "finish"
     mainOp.newOrder(order)
-    order = "setProfSign"
-    mainOp.newOrder(order)
-    order = "getExamsList"
-    mainOp.newOrder(order)
+    # order = "sendExamInfoToServer"
+    # mainOp.newOrder(order)
 
     # order = "getProfInfo 12312"
     # mainOp.newOrder(order)

@@ -13,3 +13,6 @@ class User_:
         else:
             print("# You are logged in")
             self.isLoggedIn = True
+
+    def logout(self):
+        self.isLoggedIn = False
