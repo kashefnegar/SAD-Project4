@@ -2,6 +2,7 @@ import urllib
 import urllib.request
 import requests
 import json
+from pathlib import Path
 
 from Object.Course import Course
 from Object.Exam import Exam
@@ -79,14 +80,24 @@ class StartAttendanceOp:
         return self.attendance[-1]
 
     def sendToServer(self, exam):
-        jsonObject = self.createJsonObject(exam)
+        file = Path(r"..\SavedFiles\exam" + str(exam.examId) + ".txt")
+        if file.exists():
+            print("# Resend Information")
+            f = open(r"..\SavedFiles\exam" + str(exam.examId) + ".txt", "r")
+            jsonObject = json.loads(f.read().replace("'", "\""))
+            f.close()
+        else:
+            jsonObject = self.createJsonObject(exam)
+        self.sendJson(jsonObject, exam)
+
+    def sendJson(self, jsonObject, exam):
         r = requests.post("http://142.93.134.194:8088/api/attendance", data=jsonObject)
         if r.status_code == 200:
             print("# The information was sent to server correctly")
         else:
             print(r.status_code, r.reason)
             print("# Unable to send information to server")
-            f = open(r"D:\University\3971-2\SAD\Projects\4\Project4\examId" + str(exam.examId) + ".txt", "a")
+            f = open(r"..\SavedFiles\exam" + str(exam.examId) + ".txt", "w")
             f.write(str(jsonObject))
             f.close()
             print("# Information is written in the file")
