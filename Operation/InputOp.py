@@ -241,4 +241,10 @@ class InputOp:
             print("# You are not logged in")
 
     def finish(self, info):
-        self.activeUser.logout()
+        if self.activeUser.isLoggedIn:
+            print("# Do you accept the roll calls?[Y/N]")
+            answer = input()
+            if answer == 'y' or answer == 'Y':
+                self.activeUser.logout()
+        else:
+            print("# You are not logged in")
