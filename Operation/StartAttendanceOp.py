@@ -1,5 +1,6 @@
 import urllib
 import urllib.request
+import requests
 import json
 
 from Object.Course import Course
@@ -79,7 +80,8 @@ class StartAttendanceOp:
 
     def sendToServer(self, exam):
         jsonObject = self.createJsonObject(exam)
-        print(jsonObject)
+        r = requests.post("http://142.93.134.194:8088/api/attendance", data=jsonObject)
+        print(r.status_code, r.reason)
 
     def createJsonObject(self, exam):
         presentList = self.findAttendance(exam).getPresentList()
